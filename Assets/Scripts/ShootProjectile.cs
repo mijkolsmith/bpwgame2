@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using Pathfinding;
 
-public class ShootArrow : MonoBehaviour
+public class ShootProjectile : MonoBehaviour
 {
-	public GameObject arrow;
+	public GameObject projectile;
 	float timer = 3f;
 	AIDestinationSetter ds;
 
@@ -16,7 +16,7 @@ public class ShootArrow : MonoBehaviour
 	{
 		if (ds.timer <= 0)
 		{
-			Instantiate(arrow, transform.TransformPoint(new Vector3(0, 0.6f, 0)), transform.rotation);
+			Instantiate(projectile, transform.TransformPoint(new Vector3(0, 0.6f, 0)), transform.rotation);
 			ds.timer = 3f;
 		}
 	}

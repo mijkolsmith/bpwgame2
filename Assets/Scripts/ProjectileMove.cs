@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ArrowMove : MonoBehaviour
+public class ProjectileMove : MonoBehaviour
 {
 	Rigidbody2D rb;
 

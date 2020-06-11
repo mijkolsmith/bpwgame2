@@ -9,7 +9,11 @@ public class CharacterController : MonoBehaviour
 	private Rigidbody2D rb;
 	private Vector2 moveVelocity;
 
+	Vector3 lastPos;
+
+	[SerializeField]
 	float x = 0;
+	[SerializeField]
 	float y = 0;
 
     void Start()
@@ -30,16 +34,30 @@ public class CharacterController : MonoBehaviour
 			x = -1;
 		if (y < -1)
 			y = -1;
-			
-		Debug.Log(x);
-		Debug.Log(y);
 
+		//movement
 		Vector2 moveInput = new Vector2(x,y);
 		moveVelocity = moveInput * speed;
-    }
+
+		//rotation
+		if (lastPos == null )
+		{ lastPos = gameObject.transform.position; }
+
+		Vector3 moveDirection = gameObject.transform.position - lastPos;
+		if (moveDirection != Vector3.zero)
+		{
+			float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+		}
+
+		if (lastPos != gameObject.transform.position)
+		{ lastPos = gameObject.transform.position; }
+	}
 
 	private void FixedUpdate()
 	{
 		rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
+
+		rb.MoveRotation(rb.rotation * Time.fixedDeltaTime);
 	}
 }

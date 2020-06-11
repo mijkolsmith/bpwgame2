@@ -22,11 +22,36 @@ namespace Pathfinding
 		Transform player;
 		[SerializeField]
 		float range = 5;
+		public float timer = 3f;
 
 		void OnEnable()
 		{
 			ai = GetComponent<IAstarAI>();
-			
+
+			if (gameObject.tag == "Enemy1")
+			{
+				range = 6;
+				timer = 0f;
+			}
+
+			if (gameObject.tag == "Enemy2")
+			{
+				range = 5;
+				timer = 2.5f;
+			}
+
+			if (gameObject.tag == "Enemy3")
+			{
+				range = 5;
+				timer = 4f;
+			}
+
+			if (gameObject.tag == "Magic")
+			{
+				range = 20;
+				timer = 0f;
+			}
+
 			player = GameObject.Find("Player").transform;
 
 			// Update the destination right before searching for a path as well.
@@ -44,16 +69,17 @@ namespace Pathfinding
 		/// <summary>Updates the AI's destination every frame</summary>
 		void Update()
 		{
-			Debug.Log(ai.position.x - player.localPosition.x);
-			Debug.Log(ai.position.y - player.localPosition.y);
-
-			if (ai.position.x - player.localPosition.x <= range && ai.position.y - player.localPosition.y <= range && ai.position.x - player.localPosition.x >= -range && ai.position.y - player.localPosition.y >= -range)
+			if (player != null)
 			{
-				target = GameObject.Find("Player").transform;
-			}
-			else
-			{
-				target = null;
+				if (ai.position.x - player.localPosition.x <= range && ai.position.y - player.localPosition.y <= range && ai.position.x - player.localPosition.x >= -range && ai.position.y - player.localPosition.y >= -range)
+				{
+					target = player;
+					timer -= Time.deltaTime;
+				}
+				else
+				{
+					target = null;
+				}
 			}
 
 			if (target != null && ai != null) ai.destination = target.position;

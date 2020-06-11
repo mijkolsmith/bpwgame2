@@ -18,7 +18,7 @@ public class HealthScript : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.name == "Enemy1" && timer <= 0 || collision.gameObject.name == "Enemy2Bullet" && timer <= 0 || collision.gameObject.name == "Enemy3Bullet" && timer <= 0)
+		if (collision.gameObject.name == "Enemy1" && timer <= 0 || collision.gameObject.tag == "Arrow" && timer <= 0 || collision.gameObject.tag == "Magic" && timer <= 0)
 		{
 			Destroy(hearts[hearts.Count - 1]);
 			hearts.RemoveAt(hearts.Count - 1);

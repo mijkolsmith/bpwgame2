@@ -22,28 +22,29 @@ namespace Pathfinding
 		Transform player;
 		[SerializeField]
 		float range = 5;
-		public float timer = 3f;
+		public float timer = 0f;
 
 		void OnEnable()
 		{
 			ai = GetComponent<IAstarAI>();
 
+			//the range at which enemies can see the player, and the delay in between shots
 			if (gameObject.tag == "Enemy1")
 			{
-				range = 6;
+				range = 5;
 				timer = 0f;
 			}
 
 			if (gameObject.tag == "Enemy2")
 			{
-				range = 5;
-				timer = 2.5f;
+				range = 7;
+				timer = 2f;
 			}
 
 			if (gameObject.tag == "Enemy3")
 			{
-				range = 5;
-				timer = 4f;
+				range = 6;
+				timer = 3f;
 			}
 
 			if (gameObject.tag == "Magic")

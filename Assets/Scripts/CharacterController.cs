@@ -16,13 +16,21 @@ public class CharacterController : MonoBehaviour
 	[SerializeField]
 	float y = 0;
 
-    void Start()
+	ShootProjectile sp;
+	private float timer = 0f;
+
+	[SerializeField]
+	GameObject loading;
+
+	void Start()
     {
+		sp = GetComponent<ShootProjectile>();
 		rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
+		/* this is old code of using hexagonal movement. I decided to remove this because it didn't play well.
 		x = -2f / 3f * Input.GetAxis("X") + 2f / 3f * Input.GetAxis("Z");
 		y = 2f / 3f * Input.GetAxis("X") + 2f / 3f * Input.GetAxis("Z") + Input.GetAxis("Y");
 
@@ -33,29 +41,48 @@ public class CharacterController : MonoBehaviour
 		if (x < -1)
 			x = -1;
 		if (y < -1)
-			y = -1;
+			y = -1;*/
+		
+		//have a loading screen while the game is loading
+		if (GameManager.instance.spawnTime >= 0f)
+		{ loading.SetActive(true); }
+		else
+		{ loading.SetActive(false); }
 
-		//movement
-		Vector2 moveInput = new Vector2(x,y);
+		//shooting
+		timer -= Time.deltaTime;
+
+		if (Input.GetButtonDown("Fire") && timer <= 0f)
+		{
+			sp.Shoot();
+			timer = 0.5f;
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		//movement calculations
+		x = Input.GetAxis("X");
+		y = Input.GetAxis("Y");
+
+		Vector2 moveInput = new Vector2(x, y);
 		moveVelocity = moveInput * speed;
 
-		//rotation
-		if (lastPos == null )
+		//rotation calculations
+		if (lastPos == null)
 		{ lastPos = gameObject.transform.position; }
 
 		Vector3 moveDirection = gameObject.transform.position - lastPos;
 		if (moveDirection != Vector3.zero)
 		{
 			float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+			transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 		}
 
 		if (lastPos != gameObject.transform.position)
 		{ lastPos = gameObject.transform.position; }
-	}
 
-	private void FixedUpdate()
-	{
+		//movement and rotation applications
 		rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
 
 		rb.MoveRotation(rb.rotation * Time.fixedDeltaTime);

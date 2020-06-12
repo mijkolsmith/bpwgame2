@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
 
-public class RoomTemplates : MonoBehaviour
+public class Templates : MonoBehaviour
 {
 	public GameObject[] bottomRooms;
 	public GameObject[] topRooms;
 	public GameObject[] leftRooms;
 	public GameObject[] rightRooms;
 
-	public float waitTime = 3f;
-	private bool spawnedBoss;
+	public GameObject Enemy1;
+	public GameObject Enemy2;
+	public GameObject Enemy3;
+
 	public GameObject boss;
+	private bool spawnedBoss;
 
 	private void Update()
 	{
-		if (waitTime <= 0 && !spawnedBoss)
+		//spawn the boss in the last room
+		if (GameManager.instance.spawnTime <= 0 && !spawnedBoss)
 		{
 			Instantiate(boss, GameManager.instance.rooms[GameManager.instance.rooms.Count - 1].room.transform.position, Quaternion.identity);
 			spawnedBoss = true;
-		}
-		else
-		{
-			waitTime -= Time.deltaTime;
 		}
 	}
 }

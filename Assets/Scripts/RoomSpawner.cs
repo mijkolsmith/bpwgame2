@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
@@ -9,17 +8,17 @@ public class RoomSpawner : MonoBehaviour
 	//3 = bottom
 	//4 = left
 
-	private RoomTemplates templates;
+	private Templates templates;
 	private int rand;
 	private bool spawned = false;
 
-	public float waitTime = 4f;
+	public float waitTime = 3f;
 
 	private void Start()
 	{
 		Destroy(gameObject, waitTime);
-		templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-		Invoke("Spawn", 0.2f);
+		templates = GameManager.instance.templates;
+		Invoke("Spawn", 0.1f);
 	}
 
 	void Spawn()

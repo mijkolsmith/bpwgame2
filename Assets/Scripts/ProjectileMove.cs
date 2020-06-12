@@ -9,8 +9,8 @@ public class ProjectileMove : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 	}
 
-	void Update()
+	void FixedUpdate()
     {
-		rb.AddForce(transform.up * .5f);
+		rb.AddForce(transform.up*3f);
     }
 }

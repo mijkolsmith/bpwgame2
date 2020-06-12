@@ -4,7 +4,7 @@ using Pathfinding;
 public class ShootProjectile : MonoBehaviour
 {
 	public GameObject projectile;
-	float timer = 3f;
+	float timer = 1f;
 	AIDestinationSetter ds;
 
 	private void Start()
@@ -14,10 +14,18 @@ public class ShootProjectile : MonoBehaviour
 
 	private void Update()
 	{
-		if (ds.timer <= 0)
+		if (ds != null)
 		{
-			Instantiate(projectile, transform.TransformPoint(new Vector3(0, 0.6f, 0)), transform.rotation);
-			ds.timer = 3f;
+			if (ds.timer <= 0)
+			{
+				Instantiate(projectile, transform.TransformPoint(new Vector3(0, 0.6f, 0)), transform.rotation);
+				ds.timer = 2f;
+			}
 		}
+	}
+
+	public void Shoot()
+	{
+		Instantiate(projectile, transform.TransformPoint(new Vector3(0, 0.75f, 0)), transform.rotation);
 	}
 }

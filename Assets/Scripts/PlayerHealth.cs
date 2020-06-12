@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthScript : MonoBehaviour
+public class PlayerHealth: MonoBehaviour
 {
 	[SerializeField]
 	public List<GameObject> hearts;
@@ -18,8 +18,11 @@ public class HealthScript : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.name == "Enemy1" && timer <= 0 || collision.gameObject.tag == "Arrow" && timer <= 0 || collision.gameObject.tag == "Magic" && timer <= 0)
+		if (collision.gameObject.tag == "Enemy1" && timer <= 0 || collision.gameObject.tag == "Arrow" && timer <= 0 || collision.gameObject.tag == "Magic" && timer <= 0)
 		{
+			if (collision.gameObject.tag != "Enemy1")
+			{ Destroy(collision.gameObject); }
+
 			Destroy(hearts[hearts.Count - 1]);
 			hearts.RemoveAt(hearts.Count - 1);
 			timer = 3f;

@@ -16,20 +16,42 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	int seed;
 
+	public float spawnTime = 4f;
+
 	[SerializeField]
 	public List<PlacedRoomData> rooms;
+
+	public Templates templates;
+
+	bool scan = false;
 
 	void Awake()
     {
 		if (instance == null)
+		{
 			instance = this;
+		}
 		else if (instance != this)
 		{
 			Destroy(gameObject);
 			return;
 		}
 
-		rooms = new List<PlacedRoomData>();
 		UnityEngine.Random.InitState(seed);
+
+		templates = GetComponent<Templates>();
+
+		rooms = new List<PlacedRoomData>();
+	}
+
+	private void Update()
+	{
+		spawnTime -= Time.deltaTime;
+
+		if (spawnTime <= 0 && !scan)
+		{
+			AstarPath.active.Scan();
+			scan = true;
+		}
 	}
 }

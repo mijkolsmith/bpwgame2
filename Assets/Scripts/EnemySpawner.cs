@@ -6,9 +6,6 @@ public class EnemySpawner : MonoBehaviour
 	Templates templates;
 	GameObject[] enemies;
 
-	int minEnemies = 1;
-	int maxEnemies = 3;
-
 	public void Start()
 	{
 		templates = GameManager.instance.templates;
@@ -19,7 +16,9 @@ public class EnemySpawner : MonoBehaviour
 		enemies[1] = templates.Enemy2;
 		enemies[2] = templates.Enemy3;
 
-		int rand = Random.Range(minEnemies, maxEnemies); //spawn a minimum and a maximum enemies
+		int difficulty = GameManager.instance.difficulty;
+		int rand = Random.Range(difficulty - 1, difficulty + 1); //spawn an amount of enemies
+
 		for (int i = 0; i < rand; i++)
 		{
 			StartCoroutine(SpawnEnemy());

@@ -16,13 +16,15 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	int seed;
 
-	public float spawnTime = 4f;
-
 	[SerializeField]
 	public List<PlacedRoomData> rooms;
 
 	public Templates templates;
+	public int difficulty = 2;
 
+	[HideInInspector]
+	public float spawnTime = 3f; //you don't want to edit this
+	
 	bool scan = false;
 
 	void Awake()

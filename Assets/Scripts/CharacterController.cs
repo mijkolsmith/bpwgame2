@@ -59,14 +59,12 @@ public class CharacterController : MonoBehaviour
 		{
 			if (moveDirection != Vector3.zero)
 			{
-				Debug.Log(moveDirection.y + " " + moveDirection.x);
 				float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
 				transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 			}
 		}
 		else if (Input.GetAxis("ShootX") != 0 || Input.GetAxis("ShootY") != 0)
 		{
-			Debug.Log(Input.GetAxis("ShootY") + " " + Input.GetAxis("ShootX"));
 			float angle = Mathf.Atan2(Input.GetAxis("ShootY"), Input.GetAxis("ShootX")) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 		}

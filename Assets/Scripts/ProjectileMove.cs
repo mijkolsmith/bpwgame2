@@ -7,10 +7,12 @@ public class ProjectileMove : MonoBehaviour
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		rb.velocity = Vector2.zero;
 	}
 
 	void FixedUpdate()
     {
-		rb.AddForce(transform.up*3f);
-    }
+		rb.AddForce(transform.up * 3f);
+		rb.velocity = Vector2.ClampMagnitude(rb.velocity, 6f);
+	}
 }

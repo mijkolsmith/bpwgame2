@@ -24,8 +24,9 @@ public class ShootProjectile : MonoBehaviour
 		}
 	}
 
-	public void Shoot()
+	public void Shoot(float x, float y)
 	{
-		Instantiate(projectile, transform.TransformPoint(new Vector3(0, 0.75f, 0)), transform.rotation);
+		float angle = Mathf.Atan2(Input.GetAxis("ShootY"), Input.GetAxis("ShootX")) * Mathf.Rad2Deg;
+		Instantiate(projectile, transform.TransformPoint(new Vector3(0, 0.75f, 0)), Quaternion.AngleAxis(angle - 90, Vector3.forward));
 	}
 }

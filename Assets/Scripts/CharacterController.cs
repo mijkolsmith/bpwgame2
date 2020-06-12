@@ -49,13 +49,38 @@ public class CharacterController : MonoBehaviour
 		else
 		{ loading.SetActive(false); }
 
+		//rotation calculations
+		if (lastPos == null)
+		{ lastPos = gameObject.transform.position; }
+
+		Vector3 moveDirection = gameObject.transform.position - lastPos;
+
+		if (Input.GetAxis("ShootX") == 0 && Input.GetAxis("ShootY") == 0)
+		{
+			if (moveDirection != Vector3.zero)
+			{
+				Debug.Log(moveDirection.y + " " + moveDirection.x);
+				float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+				transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+			}
+		}
+		else if (Input.GetAxis("ShootX") != 0 || Input.GetAxis("ShootY") != 0)
+		{
+			Debug.Log(Input.GetAxis("ShootY") + " " + Input.GetAxis("ShootX"));
+			float angle = Mathf.Atan2(Input.GetAxis("ShootY"), Input.GetAxis("ShootX")) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+		}
+
+		if (lastPos != gameObject.transform.position)
+		{ lastPos = gameObject.transform.position; }
+		
 		//shooting
 		timer -= Time.deltaTime;
 
-		if (Input.GetButtonDown("Fire") && timer <= 0f)
+		if (Input.GetButton("ShootX") && timer <= 0f || Input.GetButton("ShootY") && timer <= 0f)
 		{
-			sp.Shoot();
-			timer = 0.5f;
+			sp.Shoot(Input.GetAxis("ShootX"), Input.GetAxis("ShootY"));
+			timer = 1f;
 		}
 	}
 
@@ -67,20 +92,6 @@ public class CharacterController : MonoBehaviour
 
 		Vector2 moveInput = new Vector2(x, y);
 		moveVelocity = moveInput * speed;
-
-		//rotation calculations
-		if (lastPos == null)
-		{ lastPos = gameObject.transform.position; }
-
-		Vector3 moveDirection = gameObject.transform.position - lastPos;
-		if (moveDirection != Vector3.zero)
-		{
-			float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
-			transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-		}
-
-		if (lastPos != gameObject.transform.position)
-		{ lastPos = gameObject.transform.position; }
 
 		//movement and rotation applications
 		rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);

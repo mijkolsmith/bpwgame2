@@ -17,7 +17,8 @@ public class EnemySpawner : MonoBehaviour
 		enemies[2] = templates.Enemy3;
 
 		int difficulty = GameManager.instance.difficulty;
-		int rand = Random.Range(difficulty - 1, difficulty + 1); //spawn an amount of enemies
+		if (difficulty <= 1) { difficulty = 2; }
+		int rand = Random.Range(difficulty - 2, difficulty + 2); //spawn an amount of enemies 
 
 		for (int i = 0; i < rand; i++)
 		{

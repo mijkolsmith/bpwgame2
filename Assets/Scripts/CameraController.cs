@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -11,7 +9,6 @@ public class CameraController : MonoBehaviour
     {
 		if (player != null)
 		{
-			//transform.position = Vector3.Lerp(transform.position, new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - 5), Time.deltaTime * 15f);
 			transform.position = Vector3.SmoothDamp(transform.position, new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - 5), ref velocity, Time.deltaTime * 1f);
 		}
 	}

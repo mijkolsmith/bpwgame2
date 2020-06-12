@@ -13,17 +13,19 @@ public class GameManager : MonoBehaviour
 {
 	internal static GameManager instance = null;
 
-	[SerializeField]
+	[SerializeField, Tooltip("Define a seed here for the random generation")]
 	int seed;
 
 	[SerializeField]
 	public List<PlacedRoomData> rooms;
 
 	public Templates templates;
+
+	[Tooltip("Difficulty can't be lower than 2")]
 	public int difficulty = 2;
 
 	[HideInInspector]
-	public float spawnTime = 3f; //you don't want to edit this
+	public float spawnTime = .5f; //you don't want to edit this
 	
 	bool scan = false;
 

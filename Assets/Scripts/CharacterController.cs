@@ -12,6 +12,9 @@ public class CharacterController : MonoBehaviour
 	Vector3 lastPos;
 
 	[SerializeField]
+	float shootSpeed = .75f;
+
+	[SerializeField]
 	float x = 0;
 	[SerializeField]
 	float y = 0;
@@ -78,7 +81,7 @@ public class CharacterController : MonoBehaviour
 		if (Input.GetButton("ShootX") && timer <= 0f || Input.GetButton("ShootY") && timer <= 0f)
 		{
 			sp.Shoot(Input.GetAxis("ShootX"), Input.GetAxis("ShootY"));
-			timer = 1f;
+			timer = shootSpeed;
 		}
 	}
 

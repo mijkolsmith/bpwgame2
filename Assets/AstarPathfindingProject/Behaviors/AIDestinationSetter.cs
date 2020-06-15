@@ -23,6 +23,7 @@ namespace Pathfinding
 		[SerializeField]
 		float range = 5;
 		public float timer = 0f;
+		public float timer2 = 1000f;
 
 		void OnEnable()
 		{
@@ -53,6 +54,19 @@ namespace Pathfinding
 				timer = 0f;
 			}
 
+			if (gameObject.tag == "Boss")
+			{
+				range = 6;
+				timer = 3f;
+				timer2 = 4f;
+			}
+
+			if (gameObject.tag == "BossMagic")
+			{
+				range = 20;
+				timer = 0f;
+			}
+
 			player = GameObject.Find("Player").transform;
 
 			// Update the destination right before searching for a path as well.
@@ -76,6 +90,7 @@ namespace Pathfinding
 				{
 					target = player;
 					timer -= Time.deltaTime;
+					timer2 -= Time.deltaTime;
 				}
 				else
 				{

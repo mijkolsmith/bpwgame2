@@ -41,15 +41,19 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 
+		//randomized seed
+		seed = (int)DateTime.Now.Ticks;
+
+		//seed initialization
 		UnityEngine.Random.InitState(seed);
 
-		templates = GetComponent<Templates>();
 
+		templates = GetComponent<Templates>();
 		rooms = new List<PlacedRoomData>();
 	}
 
 	private void Update()
-	{
+	{ //do a new scan after the dungeon has generated
 		spawnTime -= Time.deltaTime;
 
 		if (spawnTime <= 0 && !scan)

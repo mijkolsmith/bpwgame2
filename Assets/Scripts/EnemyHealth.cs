@@ -1,26 +1,12 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyHealth: MonoBehaviour
 {
 	[SerializeField]
 	int lives = 0;
 
-	private void Start()
-	{
-		if (gameObject.tag == "Enemy1")
-		{
-			lives = 2;
-		}
-		if (gameObject.tag == "Enemy2")
-		{
-			lives = 3;
-		}
-		if (gameObject.tag == "Enemy3")
-		{
-			lives = 2;
-		}
-	}
+	[SerializeField]
+	GameObject Trapdoor;
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -32,6 +18,11 @@ public class EnemyHealth: MonoBehaviour
 
 		if (lives <= 0)
 		{
+			if (gameObject.tag == "Boss")
+			{
+				Trapdoor = Instantiate(Trapdoor, transform.position, Quaternion.identity);
+				Debug.Log(Trapdoor);
+			}
 			Destroy(gameObject);
 		}
 	}

@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
 {
 	internal static GameManager instance = null;
 
-	[SerializeField, Tooltip("Define a seed here for the random generation")]
-	int seed;
+	[SerializeField, Tooltip("Define a seed here for the random generation, it is randomized right now though")]
+	public int seed;
 
 	[SerializeField]
 	public List<PlacedRoomData> rooms;
@@ -24,8 +24,7 @@ public class GameManager : MonoBehaviour
 	[Tooltip("Difficulty can't be lower than 2")]
 	public int difficulty = 2;
 
-	[HideInInspector]
-	public float spawnTime = .5f; //you don't want to edit this
+	public float spawnTime = 1f; //edit in inspector
 	
 	bool scan = false;
 
@@ -56,7 +55,7 @@ public class GameManager : MonoBehaviour
 	{ //do a new scan after the dungeon has generated
 		spawnTime -= Time.deltaTime;
 
-		if (spawnTime <= 0 && !scan)
+		if (spawnTime <= .1f && !scan)
 		{
 			AstarPath.active.Scan();
 			scan = true;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
@@ -14,11 +15,21 @@ public class RoomSpawner : MonoBehaviour
 
 	public float waitTime = 3f;
 
+	public float timer = 0.2f;
+
 	private void Start()
 	{
-		Destroy(gameObject, waitTime);
+		//Destroy(gameObject, waitTime);
 		templates = GameManager.instance.templates;
 		Invoke("Spawn", 0.1f);
+	}
+
+	private void Update()
+	{
+		if (timer >= 0)
+		{
+			timer -= Time.deltaTime;
+		}
 	}
 
 	void Spawn()
@@ -47,10 +58,10 @@ public class RoomSpawner : MonoBehaviour
 					break;
 			}
 
+			//save the room in data
 			data.lastOpeningDirection = openingDirection;
 			if (go != null)
 			{ data.room = go; }
-
 			GameManager.instance.rooms.Add(data);
 
 			spawned = true;
@@ -59,9 +70,25 @@ public class RoomSpawner : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if(other.CompareTag("SpawnPoint") && other.GetComponent<RoomSpawner>().spawned == true)
+		if (!other.GetComponent<RoomSpawner>().spawned && !spawned && other.CompareTag("SpawnPoint"))
 		{
-			Destroy(gameObject);
+			try
+			{
+				if (!other.GetComponent<RoomSpawner>().spawned && !spawned)
+				{
+					Instantiate(GameManager.instance.templates.closedRoom, transform.position, Quaternion.identity);
+					Destroy(gameObject);
+				}
+			}
+			catch (System.Exception e)
+			{
+				Destroy(gameObject);
+			}
+			spawned = true;
+		}
+		else if (other.CompareTag("SpawnPoint"))
+		{
+			spawned = true;
 		}
 	}
 }

@@ -20,10 +20,10 @@ public class EnemySpawner : MonoBehaviour
 		if (difficulty <= 1) { difficulty = 2; }
 		int rand = Random.Range(difficulty - 2, difficulty + 2); //spawn an amount of enemies 
 
-		for (int i = 0; i < rand; i++)
-		{
-			StartCoroutine(SpawnEnemy());
-		}
+		//for (int i = 0; i < rand; i++)
+		//{
+		//	StartCoroutine(SpawnEnemy());
+		//}
 	}
 
 	IEnumerator SpawnEnemy()

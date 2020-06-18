@@ -7,6 +7,8 @@ public class Templates : MonoBehaviour
 	public GameObject[] leftRooms;
 	public GameObject[] rightRooms;
 
+	public GameObject closedRoom;
+
 	public GameObject Enemy1;
 	public GameObject Enemy2;
 	public GameObject Enemy3;

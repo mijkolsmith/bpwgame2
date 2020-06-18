@@ -12,7 +12,7 @@ public class ProjectileMove : MonoBehaviour
 
 	void FixedUpdate()
     {
-		rb.AddForce(transform.up * 5f);
+		rb.AddForce(transform.up * 10f);
 		rb.velocity = Vector2.ClampMagnitude(rb.velocity, 6f);
 	}
 }

@@ -13,8 +13,11 @@ public class GameManager : MonoBehaviour
 {
 	internal static GameManager instance = null;
 
-	[SerializeField, Tooltip("Define a seed here for the random generation, it is randomized right now though")]
+	[Tooltip("Define a seed here for the random generation")]
 	public int seed;
+
+	[Tooltip("Randomize the seed each playthrough")]
+	public bool enableRandomization;
 
 	[SerializeField]
 	public List<PlacedRoomData> rooms;
@@ -41,7 +44,10 @@ public class GameManager : MonoBehaviour
 		}
 
 		//randomized seed
-		seed = (int)DateTime.Now.Ticks;
+		if (enableRandomization)
+		{
+			seed = (int)DateTime.Now.Ticks;
+		}
 
 		//seed initialization
 		UnityEngine.Random.InitState(seed);
